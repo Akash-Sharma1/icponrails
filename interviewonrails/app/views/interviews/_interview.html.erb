@@ -1,0 +1,13 @@
+<hr>
+<p><strong>Start Time: </strong> <%= interview.startTime %></p>
+<p><strong>End Time: </strong><%= interview.endTime %></p>
+<p>
+<%= render interview.users %>
+</p>
+<p>
+        <%= link_to  "show", interview_path(interview) %>
+        <%= link_to  "edit", edit_interview_path(interview) %>
+        <%= link_to  "delete", interview_path(interview) ,
+                method: :delete,
+                data: { confirm: 'Are you sure?' }  %>
+</p>
