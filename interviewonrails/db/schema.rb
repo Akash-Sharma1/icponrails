@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20200915095802) do
   create_table "interviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci" do |t|
     t.datetime "startTime", null: false
     t.datetime "endTime", null: false
-    t.bigint "participant1_id"
-    t.bigint "participant2_id"
+    t.bigint "participant1_id", null: false
+    t.bigint "participant2_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["participant1_id"], name: "index_interviews_on_participant1_id"
