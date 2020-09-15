@@ -19,7 +19,14 @@
     <%= form.datetime_field :startTime %><br />
     <br />
     <%= form.label :endtime %><br />
-    <%= form.datetime_field :endTime %>
+    <%= form.datetime_field :endTime %><br/><br/>
+
+    <%= form.label :participant1_id %><br />
+    <%= form.collection_select(:participant1_id, User.all, :id, :username) %><br/>
+
+    <%= form.label :participant1_id %><br />
+    <%= form.collection_select(:participant2_id, User.all, :id, :username) %><br/>
+
 </p>
 
 <p>

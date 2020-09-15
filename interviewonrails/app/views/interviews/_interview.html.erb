@@ -1,9 +1,16 @@
 <hr>
 <p><strong>Start Time: </strong> <%= interview.startTime %></p>
-<p><strong>End Time: </strong><%= interview.endTime %></p>
-<p>
-<%= render interview.users %>
+<p><strong>End Time: </strong><%= interview.endTime %></p>      
+<p><strong>Participant 1: </strong>
+        <%= interview.participant1_id %>
+        <%= link_to  "View user", user_path( interview.participant1_id ) %>
 </p>
+
+<p><strong>Participant 2: </strong>
+        <%= interview.participant2_id %>
+        <%= link_to  "View user", user_path( interview.participant2_id ) %>
+</p>
+
 <p>
         <%= link_to  "show", interview_path(interview) %>
         <%= link_to  "edit", edit_interview_path(interview) %>

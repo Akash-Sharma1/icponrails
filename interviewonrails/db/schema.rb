@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200915045311) do
+ActiveRecord::Schema.define(version: 20200915095802) do
 
   create_table "interviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci" do |t|
     t.datetime "startTime", null: false
     t.datetime "endTime", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "participant1", null: false
-    t.bigint "participant2", null: false
-    t.index ["participant1"], name: "fk_rails_38acd7ed78"
-    t.index ["participant2"], name: "fk_rails_8f162e6035"
+    t.bigint "participant1_id"
+    t.bigint "participant2_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["participant1_id"], name: "index_interviews_on_participant1_id"
+    t.index ["participant2_id"], name: "index_interviews_on_participant2_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci" do |t|
@@ -30,6 +30,6 @@ ActiveRecord::Schema.define(version: 20200915045311) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "interviews", "users", column: "participant1"
-  add_foreign_key "interviews", "users", column: "participant2"
+  add_foreign_key "interviews", "users", column: "participant1_id"
+  add_foreign_key "interviews", "users", column: "participant2_id"
 end
