@@ -1,5 +1,8 @@
 class ModelValidator < ActiveModel::Validator
     def validate(record)
+      return if record.participant1_id == nil || record.participant2_id == nil ||  
+        record.startTime == nil || record.endTime == nil
+
       if record.participant1_id == record.participant2_id 
         record.errors[:base] << "Both participants should be different"
       end
@@ -23,8 +26,9 @@ class ModelValidator < ActiveModel::Validator
             (startTime <= :l  AND endTime >= :r) 
             OR (startTime >= :l  AND startTime <= :r)
             OR (endTime >= :l  AND endTime <= :r) 
-            OR (startTime >= :l  AND endTime <= :r))",
-            {l: record.startTime, r: record.endTime, id: participant_id, recordId: record.id})
+            OR (startTime >= :l  AND endTime <= :r))
+            AND (id <> :recordid)",
+            {l: record.startTime, r: record.endTime, id: participant_id, recordid: record.id})
         ShowError(participant_id, overlaps, record)
     end
 
