@@ -1,17 +1,19 @@
 require 'MailingHelper'
 
 class InterviewsController < ApplicationController
+
+    before_action :getusers, only: [:new, :edit, :create, :update]
+    before_action :getinterview, only: [:show, :remind, :edit, :update]
+
     def index
         @interview = Interview.all
         @user = User.all
     end
     
     def show
-        @interview = Interview.find(params[:id])
     end
 
     def remind
-        @interview = Interview.find(params[:id])
         helper = MailingHelper.new
         helper.SendMail(@interview, "REMIND")
         redirect_to interviews_path
@@ -19,20 +21,12 @@ class InterviewsController < ApplicationController
 
     def new
         @interview = Interview.new
-        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
-        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
     end
     
     def edit
-        @interview = Interview.find(params[:id])
-        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
-        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
     end
 
     def create
-        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
-        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
-
         @interview = Interview.new(interview_params)
         if @interview.save
             helper = MailingHelper.new
@@ -44,9 +38,6 @@ class InterviewsController < ApplicationController
     end
     
     def update
-        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
-        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
-        @interview = Interview.find(params[:id])
         prev_user1 = @interview.participant1_id
         prev_user2 = @interview.participant2_id
 
@@ -60,8 +51,7 @@ class InterviewsController < ApplicationController
         end
     end
 
-    def destroy
-        @interview = Interview.find(params[:id])        
+    def destroy     
         helper = MailingHelper.new 
         helper.SendMail(@interview, "DELETE")
         @interview.destroy
@@ -71,6 +61,17 @@ class InterviewsController < ApplicationController
     private
     def interview_params
         params.require(:interview).permit(:startTime, :endTime, :participant1_id, :participant2_id)
+    end
+    
+    private
+    def getusers
+        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
+        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
+    end
+
+    private
+    def getinterview
+        @interview = Interview.find(params[:id])
     end
 end
 
