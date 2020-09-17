@@ -8,8 +8,13 @@ class InterviewsController < ApplicationController
     
     def show
         @interview = Interview.find(params[:id])
+    end
+
+    def remind
+        @interview = Interview.find(params[:id])
         helper = MailingHelper.new
         helper.SendMail(@interview, "REMIND")
+        redirect_to interviews_path
     end
 
     def new
