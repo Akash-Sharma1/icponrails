@@ -22,22 +22,25 @@ class ModelValidator < ActiveModel::Validator
 
     private
     def ValidateOverlappings(record, participant_id)
+
         overlaps = Interview.where(" (participant1_id = :id OR participant2_id = :id) AND ( 
             (startTime <= :l  AND endTime >= :r) 
             OR (startTime >= :l  AND startTime <= :r)
             OR (endTime >= :l  AND endTime <= :r) 
-            OR (startTime >= :l  AND endTime <= :r))
-            AND (id <> :recordid)",
+            OR (startTime >= :l  AND endTime <= :r)) ",
             {l: record.startTime, r: record.endTime, id: participant_id, recordid: record.id})
         ShowError(participant_id, overlaps, record)
+    
     end
 
     private
     def ShowError(participant_id, overlaps, record)
         return if overlaps == nil
         overlaps.each do |interview|
-            record.errors.add(:participant_id, "Timing of user with id = #{participant_id}
-                has overlapping intervals from  #{interview.startTime} to  #{interview.endTime} ")
+            if record.id != interview.id
+              record.errors.add(:participant_id, "Timing of user with id = #{participant_id}
+                  has overlapping intervals from  #{interview.startTime} to  #{interview.endTime} ")
+            end
         end
     end
 end

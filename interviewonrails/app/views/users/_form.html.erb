@@ -22,7 +22,7 @@
     <%= form.text_field :email %><br/>
     </br>
     <%= form.label :usertype %><br />
-    <%= form.select(:usertype, options_for_select( [['admin', 'admin'], ['participant', 'participant']], 'participant') ) %></br>
+    <%= form.select(:usertype, options_for_select( [['admin', 'admin'], ['participant', 'participant']]) ) %></br>
     </br>
     <%= form.label :resume %><br />
     <%= form.file_field :resume %></br>

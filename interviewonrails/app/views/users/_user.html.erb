@@ -2,7 +2,7 @@
 <p><strong>username: </strong> <%= user.username %></p>
 <p><strong>email: </strong><%= user.email %></p>
 <p><strong>user type: </strong><%= user.usertype %></p>
-<p><strong>Resume: </strong><%= user.resume.url %></p>
+<p><strong>Resume: </strong><a href= <%= user.resume.url %> >Resume link</a></p>
 <p>
 <%= link_to  "show", user_path(user) %>
 <%= link_to  "edit", edit_user_path(user) %>

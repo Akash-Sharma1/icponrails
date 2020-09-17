@@ -2,13 +2,13 @@
 <p><strong>Start Time: </strong> <%= interview.startTime %></p>
 <p><strong>End Time: </strong><%= interview.endTime %></p>      
 <p><strong>Participant 1: </strong>
-        <%= interview.participant1_id %>
-        <%= link_to  "View user", user_path( interview.participant1_id ) %>
+<% user = User.find(interview.participant1_id) %>
+        <p><%= user.username %> , <%= user.email %> , <a href= <%= user.resume.url %> >Resume link</a></p>
 </p>
 
 <p><strong>Participant 2: </strong>
-        <%= interview.participant2_id %>
-        <%= link_to  "View user", user_path( interview.participant2_id ) %>
+<% user = User.find(interview.participant2_id) %>
+        <p><%= user.username %> , <%= user.email %> , <a href= <%= user.resume.url %> >Resume link</a></p>
 </p>
 
 <p>

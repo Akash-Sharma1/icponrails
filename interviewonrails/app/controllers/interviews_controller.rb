@@ -13,17 +13,21 @@ class InterviewsController < ApplicationController
     end
 
     def new
-        @user = User.all
         @interview = Interview.new
+        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
+        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
     end
     
     def edit
-        @user = User.all
         @interview = Interview.find(params[:id])
+        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
+        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
     end
 
     def create
-        @user = User.all
+        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
+        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
+
         @interview = Interview.new(interview_params)
         if @interview.save
             helper = MailingHelper.new
@@ -35,6 +39,8 @@ class InterviewsController < ApplicationController
     end
     
     def update
+        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
+        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
         @interview = Interview.find(params[:id])
         prev_user1 = @interview.participant1_id
         prev_user2 = @interview.participant2_id

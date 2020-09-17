@@ -13,8 +13,12 @@ class UsersController < ApplicationController
 
     def create
         @user = User.new(user_params)
-        @user.save
-        redirect_to @user
+        if @user.save
+            @user.save
+            redirect_to @user
+        else
+            render 'new'
+        end
     end
 
     def edit
@@ -30,7 +34,7 @@ class UsersController < ApplicationController
     def destroy
         @user = User.find(params[:id])
         @user.destroy
-        redirect_to interviews_path
+        redirect_to users_path
     end
 
     private
