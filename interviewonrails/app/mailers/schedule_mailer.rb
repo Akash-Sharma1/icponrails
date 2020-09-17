@@ -3,12 +3,12 @@ class ScheduleMailer < ApplicationMailer
 
     def NewScheduleMail
         @user = params[:user]
-        mail(to: @user.email, subject: 'New Interview Scheduled') 
+        puts mail(to: @user.email, subject: 'New Interview Scheduled') 
     end
 
     def DeleteScheduleMail
         @user = params[:user]
-        mail(to: @user.email, subject: 'Cancellation of Scheduled Interview') 
+        puts mail(to: @user.email, subject: 'Cancellation of Scheduled Interview') 
     end
 
     def ReminderScheduleMail
@@ -18,6 +18,6 @@ class ScheduleMailer < ApplicationMailer
     
     def ChangeScheduleMail
         @user = params[:user]
-        mail(to: @user.email, subject: 'Change in Scheduled Interview') 
+        puts mail(to: @user.email, subject: 'Change in Scheduled Interview') 
     end
 end

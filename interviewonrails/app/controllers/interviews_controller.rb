@@ -3,7 +3,7 @@ require 'MailingHelper'
 class InterviewsController < ApplicationController
 
     before_action :getusers, only: [:new, :edit, :create, :update]
-    before_action :getinterview, only: [:show, :remind, :edit, :update]
+    before_action :getinterview, only: [:show, :remind, :edit, :update, :destroy]
 
     def index
         @interview = Interview.all
