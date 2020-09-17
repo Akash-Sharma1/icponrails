@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/sinatra/sinatra.git
+  revision: 0d7e580133a5bb65b05214be7aa9cf195a4698e9
+  specs:
+    rack-protection (2.1.0)
+      rack
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -61,6 +73,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
+    connection_pool (2.2.3)
     crass (1.0.6)
     erubi (1.9.0)
     execjs (2.7.0)
@@ -85,6 +98,8 @@ GEM
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
     minitest (5.14.2)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3-x64-mingw32)
     mysql2 (0.5.3-x86-mingw32)
     nio4r (2.5.2)
@@ -130,6 +145,8 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.1.4)
+    ruby2_keywords (0.0.2)
     rubyzip (1.3.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -145,6 +162,11 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sidekiq (5.2.9)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack (~> 2.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 4.2)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -192,6 +214,8 @@ DEPENDENCIES
   rails (~> 5.1.7)
   sass-rails (~> 5.0)
   selenium-webdriver
+  sidekiq (~> 5.2.8)
+  sinatra!
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)

@@ -1,3 +1,5 @@
+require 'json'
+
 class MailingHelper
     def SendMail(interview, operation)
         user1 = User.find(interview.participant1_id)
@@ -36,14 +38,6 @@ class MailingHelper
 
     private
     def send_mail(user, operation)
-        if (operation == "NEW")
-            ScheduleMailer.with(user: user).NewScheduleMail.deliver_later
-        elsif (operation == "DELETE")
-            ScheduleMailer.with(user: user).DeleteScheduleMail.deliver_later
-        elsif (operation == "REMIND")
-            ScheduleMailer.with(user: user).ReminderScheduleMail.deliver_later   
-        elsif (operation == "CHANGE")
-            ScheduleMailer.with(user: user).ChangeScheduleMail.deliver_later
-        end
+        MailInqueueJobJob.perform_later(user, operation)
     end
 end

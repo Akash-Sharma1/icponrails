@@ -50,6 +50,8 @@ test:
 #
 production:
   <<: *default
-  database: interviewonrails_production
-  username: interviewonrails
-  password: <%= ENV['INTERVIEWONRAILS_DATABASE_PASSWORD'] %>
+  database: testdbforrails
+  username: todorailsadmin
+  password: password
+  host: localhost
+  socket: MySql

@@ -1,0 +1,7 @@
+:concurrency: 1
+:queues:
+  - default
+  - mailers
+
+  - mailing_work_default
+  - mailing_work_mailers

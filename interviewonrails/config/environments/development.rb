@@ -7,6 +7,10 @@ Rails.application.configure do
   config.cache_classes = false
 
   
+  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_name_prefix = "mailing_work"
+  config.active_job.queue_name_delimiter = "_"
+
   Paperclip.options[:command_path] = "/usr/local/bin/"
   # For storing files
   
