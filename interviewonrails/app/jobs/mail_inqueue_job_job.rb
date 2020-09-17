@@ -2,7 +2,7 @@ class MailInqueueJobJob < ApplicationJob
   queue_as :default
 
   def perform(user, operation)
-    puts user
+    puts user.id
     if (operation == "NEW")
         ScheduleMailer.with(user: user).NewScheduleMail.deliver_now
     elsif (operation == "DELETE")

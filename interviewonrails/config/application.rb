@@ -16,6 +16,7 @@ module Interviewonrails
     # -- all .rb files in that directory are automatically loaded.
 
     config.active_job.queue_adapter = :sidekiq
+    #bundle exec sidekiq -q mailing_work_default to run
 
   end
 end

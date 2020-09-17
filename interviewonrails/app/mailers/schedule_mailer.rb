@@ -13,7 +13,7 @@ class ScheduleMailer < ApplicationMailer
 
     def ReminderScheduleMail
         @user = params[:user]
-        mail(to: @user.email, subject: 'Reminder for Scheduled Interview') 
+        puts mail(to: @user.email, subject: 'Reminder for Scheduled Interview') 
     end
     
     def ChangeScheduleMail
