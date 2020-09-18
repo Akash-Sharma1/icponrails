@@ -10,31 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200916092144) do
+ActiveRecord::Schema.define(version: 20200918082013) do
 
   create_table "interviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci" do |t|
     t.datetime "startTime", null: false
     t.datetime "endTime", null: false
-    t.bigint "participant1_id", null: false
-    t.bigint "participant2_id", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["participant1_id"], name: "index_interviews_on_participant1_id"
-    t.index ["participant2_id"], name: "index_interviews_on_participant2_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "schedules", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci" do |t|
+    t.bigint "user_id"
+    t.bigint "interview_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["interview_id"], name: "index_schedules_on_interview_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci" do |t|
     t.string "username", null: false
     t.string "email", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "resume_file_name"
     t.string "resume_content_type"
     t.bigint "resume_file_size"
     t.datetime "resume_updated_at"
     t.string "usertype", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "interviews", "users", column: "participant1_id"
-  add_foreign_key "interviews", "users", column: "participant2_id"
+  add_foreign_key "schedules", "interviews"
+  add_foreign_key "schedules", "users"
 end

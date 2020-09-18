@@ -2,12 +2,11 @@ require 'MailingHelper'
 
 class InterviewsController < ApplicationController
 
-    before_action :getusers, only: [:new, :edit, :create, :update]
     before_action :getinterview, only: [:show, :remind, :edit, :update, :destroy]
 
     def index
         @interview = Interview.all
-        @user = User.all
+        @users = User.all
     end
     
     def show
@@ -15,22 +14,26 @@ class InterviewsController < ApplicationController
 
     def remind
         helper = MailingHelper.new
-        helper.SendMail(@interview, "REMIND")
+        helper.SendMail("REMIND",@interview)
         redirect_to interviews_path
     end
 
     def new
+        @users = User.all
         @interview = Interview.new
     end
     
     def edit
+        @users = User.all
     end
 
     def create
+        @users = User.all
         @interview = Interview.new(interview_params)
+        @interview.user_ids = params[:user_ids]
         if @interview.save
             helper = MailingHelper.new
-            helper.SendMail(@interview, "NEW")
+            helper.SendMail("NEW",@interview)
             redirect_to @interview
         else
             render 'new'
@@ -38,35 +41,29 @@ class InterviewsController < ApplicationController
     end
     
     def update
-        prev_user1 = @interview.participant1_id
-        prev_user2 = @interview.participant2_id
-
-        if @interview.update(interview_params)
-            helper = MailingHelper.new
-            helper.SendAccrodingly(prev_user1, prev_user2, @interview)
+        @users = User.all
+        @interview.user_ids = params[:user_ids]
+        helper = MailingHelper.new
+        helper.SetPrevInterview(@interview)
             
+        if @interview.update(interview_params)
+            helper.SendMail("CHANGE", @interview)
             redirect_to @interview
         else
             render 'edit'
         end
     end
 
-    def destroy     
-        helper = MailingHelper.new 
-        helper.SendMail(@interview, "DELETE")
+    def destroy
+        helper = MailingHelper.new
+        helper.SendMail("DELETE", @interview)
         @interview.destroy
         redirect_to interviews_path
     end
 
     private
     def interview_params
-        params.require(:interview).permit(:startTime, :endTime, :participant1_id, :participant2_id)
-    end
-    
-    private
-    def getusers
-        @userparticipant = User.where("usertype = :usertype" , {usertype: "participant"})
-        @useradmin = User.where("usertype = :usertype" , {usertype: "admin"})
+        params.require(:interview).permit(:startTime, :endTime, user_ids: [])
     end
 
     private

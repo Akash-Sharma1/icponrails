@@ -6,7 +6,7 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_adapter = :sidekiq 
   config.active_job.queue_name_prefix = "mailing_work"
   config.active_job.queue_name_delimiter = "_"
   

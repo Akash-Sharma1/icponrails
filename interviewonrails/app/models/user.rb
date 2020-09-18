@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+    
+    has_many :schedules
+    has_many :interviews, through: :schedules
+
     validates :username, :email, presence: true
     validates :email, uniqueness: true
     validates :username, uniqueness: true

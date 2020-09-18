@@ -1,16 +1,12 @@
 <hr>
+<p><strong>Start Time: </strong> <%= interview.id %></p>
 <p><strong>Start Time: </strong> <%= interview.startTime %></p>
 <p><strong>End Time: </strong><%= interview.endTime %></p>   
 <p><%= link_to  "Send Reminder", interview_remind_path(interview) %></p>   
-<p><strong>Participant 1: </strong>
-<% user = User.find(interview.participant1_id) %>
-        <p><%= user.username %> , <%= user.email %> , <a href= <%= user.resume.url %> >Resume link</a></p>
-</p>
 
-<p><strong>Participant 2: </strong>
-<% user = User.find(interview.participant2_id) %>
-        <p><%= user.username %> , <%= user.email %> , <a href= <%= user.resume.url %> >Resume link</a></p>
-</p>
+<table>
+        <%= render partial: 'interviews/user', collection: interview.users %>
+</table>
 
 <p>
         <%= link_to  "show", interview_path(interview) %>

@@ -20,7 +20,7 @@ default: &default
 
 development:
   <<: *default
-  database: testdbforrails
+  database: testdb
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -50,7 +50,7 @@ test:
 #
 production:
   <<: *default
-  database: testdbforrails
+  database: testdb
   username: todorailsadmin
   password: password
   host: localhost

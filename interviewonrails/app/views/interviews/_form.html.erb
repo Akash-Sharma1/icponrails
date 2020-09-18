@@ -21,11 +21,8 @@
     <%= form.label :endtime %><br />
     <%= form.datetime_field :endTime %><br/><br/>
 
-    <%= form.label :participant1_id %><br />
-    <%= form.collection_select(:participant1_id, @useradmin, :id, :username) %><br/>
-
-    <%= form.label :participant1_id %><br />
-    <%= form.collection_select(:participant2_id, @userparticipant, :id, :username) %><br/>
+    <%= form.label :user_ids %><br />
+    <%= select_tag "user_ids[]", options_for_select(@users.collect{|x| [x.username,x.id]}), {:multiple => :multiple, :size => @users.length() } %>
 </p>
 
 <p>
