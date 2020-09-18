@@ -12,6 +12,7 @@ class MailingHelper
         @prev_startTime = ""
         @prev_endTime = ""
         @prev_users = {}
+        @interview_id = ""
     end
 
     def SetPrevInterview(prev_interview)
@@ -25,6 +26,7 @@ class MailingHelper
         
         @startTime = interview.startTime.to_s
         @endTime = interview.endTime.to_s
+        @interview_id = interview.id
 
         if operation != @CHANGE
             send_mail_by_user_array(interview.users, operation)
@@ -44,7 +46,6 @@ class MailingHelper
             end
         end
 
-        puts user_occurence
         new_users = []
         common_users = []
         deleted_users = []
@@ -62,6 +63,10 @@ class MailingHelper
         send_mail_by_user_array(new_users, @NEW)
         send_mail_by_user_array(deleted_users, @DELETE)
         send_mail_by_user_array(common_users, @CHANGE)
+        
+        if(operation == @NEW || operation == @CHANGE)
+            MailInqueueJobJob.set(wait_until: @endTime.to_datetime - 5.hours - 30.minutes).perform_later(@interview_id, @endTime)
+        end
 
         return true
     end
