@@ -18,5 +18,12 @@ module Interviewonrails
     config.active_job.queue_adapter = :sidekiq
     #bundle exec sidekiq -q mailing_work_default to run
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+         origins '*'
+         resource '*', :headers => :any, :methods => [:get, :post, :options, :patch, :delete]
+       end
+    end
+
   end
 end

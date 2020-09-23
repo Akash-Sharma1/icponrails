@@ -44,6 +44,7 @@ class InterviewsController < ApplicationController
     end
 
     def create
+        puts params
         @users = User.all
         @interview = Interview.new(interview_params)
         @interview.user_ids = params[:user_ids]
